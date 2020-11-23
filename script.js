@@ -22,6 +22,24 @@ addBtn.addEventListener('click', function () {
         taskText.innerHTML = `${todoText.value}`;
         task.appendChild(taskText);
 
+        // add checkbox task  
+
+        let checkTask = document.createElement('input');
+        checkTask.setAttribute('type', "checkbox");
+        checkTask.classList = 'checkTask';
+        task.appendChild(checkTask);
+
+        checkTask.addEventListener('click', function () {
+            if (this.checked == true) {
+                taskText.style.opacity = 0.3;
+                taskText.style.textDecoration = "line-through";
+            }
+            else {
+                taskText.style.opacity = 1;
+                taskText.style.textDecoration = "none";
+
+            }
+        });
 
         // add remove task button 
 
@@ -42,8 +60,10 @@ addBtn.addEventListener('click', function () {
         });
 
         todoList.appendChild(task);
-        
+
+
         todoText.value = "";
+        todoText.style.border = "2px solid #000";
     }
 
 
