@@ -22,6 +22,77 @@ addBtn.addEventListener('click', function () {
         taskText.innerHTML = `${todoText.value}`;
         task.appendChild(taskText);
 
+        // add edit task button 
+        
+        let editTask = document.createElement('div');
+        editTask.classList = 'editTask';
+        editTask.setAttribute('id', 'editTask');
+        editTask.innerHTML = 'Edit';
+        task.appendChild(editTask);
+
+        editTask.addEventListener('click', function() {
+
+            taskText.style.display = "none";
+            checkTask.style.display = "none";
+            removeTask.style.display = "none";
+            editTask.style.display = "none";
+
+            task.style.flexDirection = "row-reverse";
+            
+            let acceptBtn = document.createElement('div');
+            acceptBtn.classList = 'acceptBtn';
+            acceptBtn.setAttribute('id', 'acceptBtn');
+            task.appendChild(acceptBtn);
+
+            acceptBtn.addEventListener('click', function() {
+                if(editInput.value == "") {
+                    todoList.removeChild(task);
+                }
+
+                taskText.innerHTML = `${editInput.value}`;
+                
+
+                taskText.style.display = "inline";
+                checkTask.style.display = "inline";
+                removeTask.style.display = "inline";
+                editTask.style.display = "inline";
+
+                this.style.display = "none";
+                cancelBtn.style.display = "none";
+                editInput.style.display = "none";
+                task.style.flexDirection = "";
+
+           
+            });
+
+            let cancelBtn = document.createElement('div');
+            cancelBtn.classList = 'cancelBtn';
+            cancelBtn.setAttribute('id', 'cancelBtn');
+            task.appendChild(cancelBtn);
+
+            cancelBtn.addEventListener('click', function() {
+                taskText.style.display = "inline";
+                checkTask.style.display = "inline";
+                removeTask.style.display = "inline";
+                editTask.style.display = "inline";
+
+                this.style.display = "none";
+                acceptBtn.style.display = "none";
+                editInput.style.display = "none";
+                task.style.flexDirection = "";
+            });
+
+            let editInput = document.createElement('input');
+            editInput.classList = 'editInput';
+            editInput.setAttribute('id', 'editInput');
+            editInput.value = taskText.innerHTML;
+            task.appendChild(editInput);
+        
+
+           
+
+        });
+
         // add checkbox task  
 
         let checkTask = document.createElement('input');
@@ -33,11 +104,12 @@ addBtn.addEventListener('click', function () {
             if (this.checked == true) {
                 taskText.style.opacity = 0.3;
                 taskText.style.textDecoration = "line-through";
+                task.style.opacity = 0.7;
             }
             else {
                 taskText.style.opacity = 1;
                 taskText.style.textDecoration = "none";
-
+                task.style.opacity = 1;
             }
         });
 
@@ -52,15 +124,12 @@ addBtn.addEventListener('click', function () {
             todoList.removeChild(task);
         });
 
-
-
         task.addEventListener('contextmenu', function () {
             todoList.removeChild(this);
             console.log(this);
         });
 
         todoList.appendChild(task);
-
 
         todoText.value = "";
         todoText.style.border = "2px solid #000";
