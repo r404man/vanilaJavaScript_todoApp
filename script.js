@@ -3,9 +3,10 @@ var todoText = document.getElementById('todo-text');
 var todoList = document.getElementById('todo-list');
 var idTask = 0;
 var taskDate = new Date();
+var todoFinishedList = document.getElementById('todo-finish-list');
 
 addBtn.addEventListener('click', function () {
-    if (todoText.value == "") {
+    if (todoText.value == "" || todoText.value[0] == "<") {
         alert('Plz insert data !');
         todoText.style.border = `1px solid red`;
     }
@@ -105,28 +106,33 @@ addBtn.addEventListener('click', function () {
                 taskText.style.opacity = 0.3;
                 taskText.style.textDecoration = "line-through";
                 task.style.opacity = 0.7;
+
+                todoList.removeChild(task);
+                todoFinishedList.appendChild(task);
+
+
+                removeTask.addEventListener('click', function () {
+                    todoFinishedList.removeChild(task);
+                });
             }
             else {
                 taskText.style.opacity = 1;
                 taskText.style.textDecoration = "none";
                 task.style.opacity = 1;
+                todoFinishedList.removeChild(task);
+                todoList.appendChild(task);
             }
         });
 
         // add remove task button 
 
-        let removeTask = document.createElement('div');
+        var removeTask = document.createElement('div');
         removeTask.setAttribute('id', 'removeTask');
         removeTask.className = "removeTask";
         task.appendChild(removeTask);
 
         removeTask.addEventListener('click', function () {
             todoList.removeChild(task);
-        });
-
-        task.addEventListener('contextmenu', function () {
-            todoList.removeChild(this);
-            console.log(this);
         });
 
         todoList.appendChild(task);

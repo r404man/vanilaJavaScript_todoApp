@@ -167,3 +167,11 @@ input:checked {
     width: 76%;
     height: 25px;
 }
+
+.todo-finish-list {
+    width: 100%;
+}
+
+.todo-finish-list .task {
+    background-color: rgb(182, 255, 140);
+}
